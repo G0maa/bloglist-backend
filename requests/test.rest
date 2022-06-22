@@ -4,8 +4,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Test title",
-    "author": "Gomaa Bin Noriel",
+    "title": "Test title3",
+    "author": "Gomaa Bin Noriel3",
     "url": "dunno",
     "likes": 3
 }
