@@ -7,14 +7,15 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    author: {
+    author: String,
+    url: {
         type: String,
-        reqiored: true,
+        required: true,
     },
-    url: String,
     likes: Number,
 })
 
+// Note: Order of properties change, _id was the first, now id is the last.
 blogSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
