@@ -14,7 +14,19 @@ const initialBlogs = [
         url: 'dunno2',
         likes: 2,
     },
+]
 
+const initialUsers = [
+    {
+        username: 'root',
+        name: 'Noriel',
+        password: 'Seekret',
+    },
+    {
+        username: 'admin',
+        name: 'Gomaa',
+        password: 'Security',
+    },
 ]
 
 const notExistingId = async () => {
@@ -28,4 +40,5 @@ const notExistingId = async () => {
 module.exports = {
     initialBlogs,
     notExistingId,
+    initialUsers,
 }

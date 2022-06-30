@@ -9,6 +9,7 @@ const morgan = require('morgan')
 
 const config = require('./utils/config')
 const blogsRouter = require('./controllers/blogsRouter')
+const usersRouter = require('./controllers/usersRouter')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 
@@ -28,6 +29,7 @@ app.use(express.json())
 app.use(morgan('tiny')) // I wonder if this should be in `middleware.js`
 
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
 app.get('/', (requset, response) => {
     response.send(
         '<h1>Helllo Noriel!</h1>',
