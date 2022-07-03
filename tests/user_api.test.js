@@ -1,3 +1,6 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 
@@ -7,7 +10,14 @@ const helper = require('./test_helper')
 
 beforeEach(async () => {
     await User.deleteMany({})
-    await User.insertMany(helper.initialUsers)
+
+    // You have to insert it like this because you need passwordHash in DB.
+    for (const user of helper.initialUsers) {
+        await api
+            .post('/api/users')
+            .send(user)
+            .expect(201)
+    }
 })
 
 describe('User creation', () => {
@@ -81,4 +91,8 @@ describe('User creation', () => {
         const users = await api.get('/api/users')
         expect(users.body).toHaveLength(helper.initialUsers.length)
     })
+})
+
+afterAll(() => {
+    mongoose.connection.close()
 })

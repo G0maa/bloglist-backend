@@ -13,6 +13,10 @@ const blogSchema = new mongoose.Schema({
         required: true,
     },
     likes: Number,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
 })
 
 // Note: Order of properties change, _id was the first, now id is the last.
