@@ -13,66 +13,54 @@ const helper = require('./test_helper')
 // doesbt actually register users i.e. they don't have passwordHash.
 // await User.insertMany(helper.initalUsers)
 beforeEach(async () => {
-    await User.deleteMany({})
-    for (const user of helper.initialUsers) {
-        await api
-            .post('/api/users')
-            .send(user)
-            .expect(201)
-    }
+  await User.deleteMany({})
+  for (const user of helper.initialUsers) {
+    await api.post('/api/users').send(user).expect(201)
+  }
 })
 
 // Testing JWT through trying to access GET /api/blogs,
 // Seems better than verifying the JWT here, as in the SECRET
 // should be a secret and all. : )
 describe('Loggging in:', () => {
-    test('When correct credintials', async () => {
-        const user = {
-            username: 'admin',
-            password: 'security',
-        }
+  test('When correct credintials', async () => {
+    const user = {
+      username: 'admin',
+      password: 'security',
+    }
 
-        const response = await api
-            .post('/api/login')
-            .send(user)
-            .expect(200)
+    const response = await api.post('/api/login').send(user).expect(200)
 
-        const { token } = response.body
-        console.log(token)
-        await api
-            .get('/api/blogs')
-            .set('Authorization', `bearer ${token}`)
-            .expect(200)
-    })
+    const { token } = response.body
+    console.log(token)
+    await api
+      .get('/api/blogs')
+      .set('Authorization', `bearer ${token}`)
+      .expect(200)
+  })
 
-    test('When wrong credntials', async () => {
-        const user = {
-            username: 'root',
-            password: 'wrongPassword',
-        }
+  test('When wrong credntials', async () => {
+    const user = {
+      username: 'root',
+      password: 'wrongPassword',
+    }
 
-        const response = await api
-            .post('/api/login')
-            .send(user)
-            .expect(401)
+    const response = await api.post('/api/login').send(user).expect(401)
 
-        expect(response.body.error).toEqual('invalid username or password')
-    })
+    expect(response.body.error).toEqual('invalid username or password')
+  })
 
-    test('When missing credntials', async () => {
-        const user = {
-            username: 'root',
-        }
+  test('When missing credntials', async () => {
+    const user = {
+      username: 'root',
+    }
 
-        const response = await api
-            .post('/api/login')
-            .send(user)
-            .expect(400)
+    const response = await api.post('/api/login').send(user).expect(400)
 
-        expect(response.body.error).toEqual('username and password required')
-    })
+    expect(response.body.error).toEqual('username and password required')
+  })
 })
 
 afterAll(() => {
-    mongoose.connection.close()
+  mongoose.connection.close()
 })
