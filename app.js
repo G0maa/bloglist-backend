@@ -11,6 +11,7 @@ const config = require('./utils/config')
 const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const testingRouter = require('./controllers/testing')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 
@@ -28,6 +29,13 @@ app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 app.use(morgan('tiny')) // I wonder if this should be in `middleware.js`
+if (config.NODE_ENV === 'development') {
+    app.use(middleware.requestLogger)
+}
+
+if (config.NODE_ENV === 'test') {
+    app.use('/api/testing', testingRouter)
+}
 // app.use(middleware.tokenExtractor) HMMMMM.
 // app.use(middleware.userExtractor) HMMMMM.
 

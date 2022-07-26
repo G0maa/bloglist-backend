@@ -4,10 +4,11 @@
   "description": "Fullstack Open part 4 excerises",
   "main": "index.js",
   "scripts": {
-    "start": "corss-env NODE_ENV=production node index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "cypress:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "Noriel",
   "license": "ISC",

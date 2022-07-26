@@ -4,6 +4,12 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 const { tokenExtractor, userExtractor } = require('../utils/middleware')
 
+// Because this one doesn't need authorization :)
+blogsRouter.get('/', async (request, response) => {
+    const blogs = await Blog.find({}).populate('user', { username: 1 })
+    response.json(blogs)
+})
+
 // Safely assuming that all routes here require authorizaiton header.
 blogsRouter.use(tokenExtractor)
 blogsRouter.use(userExtractor)
@@ -31,11 +37,6 @@ blogsRouter.get('/:id', async (request, response) => {
     }
 
     response.json(blog)
-})
-
-blogsRouter.get('/', async (request, response) => {
-    const blogs = await Blog.find({}).populate('user', { username: 1 })
-    response.json(blogs)
 })
 
 blogsRouter.post('/', async (request, response) => {
