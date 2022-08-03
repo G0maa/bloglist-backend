@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
@@ -45,8 +46,34 @@ usersRouter.post('/', async (request, response) => {
 })
 
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({}).populate('blogs', { title: 1, author: 1 })
-  response.json(users)
+  // const users = await User.find({}).populate('blogs', { title: 1, author: 1 })
+  const users = await User.find({}).select({ 'name' : 1, 'blogs': 1 })
+  console.log(users)
+  // This is part of views and should be moved to the frontend
+  const minifiedUsers = []
+  for (const user of users) {
+    minifiedUsers.push({
+      name: user.name,
+      username: user.username,
+      blogCount: user.blogs.length,
+      blogs: [],
+      id: user._id
+    })
+  }
+  response.json(minifiedUsers)
+})
+
+usersRouter.get('/:id', async (request, response) => {
+  const userQuery = await User.findById(request.params.id).populate('blogs', { title: 1, author: 1 })
+
+  const userObj = {
+    name: userQuery.name,
+    username: userQuery.username,
+    blogsCount: userQuery.blogs.length,
+    blogs: userQuery.blogs,
+    id: userQuery._id
+  }
+  response.json(userObj)
 })
 
 module.exports = usersRouter

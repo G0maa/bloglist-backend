@@ -28,3 +28,7 @@ Content-Type: application/json
     "url": "/test6/",
     "likes": 99
 }
+###
+GET http://localhost:3003/api/users/
+###
+GET http://localhost:3003/api/users/62bd6e9dbf8b8ac6c5a8b6b3

@@ -16,6 +16,24 @@
   - or username: `root` password `secret` or `sekret`
 - [Main repo link](https://github.com/OoMiDOoO/FullstackOpen), I can't submit many repos to the system so files of this repo will be copied there eventually.
 - P.S: I had a `.git` renamed to `git_folder` and `.gitignore`ed, so you might see more commits than in the main repo...
+
+- Actual to-dos:
+  - Fix PUT (in the logic related to liking a blog)
+  - Have a time limit for the tokens.
+  - Fix deletion of blogs doesn't reflect changes on _any_ `user` document beforepopulation, this is also found in the excercise solution of `part4`: ✅
+  - I want to make retrival of `/api/users/` to not get me blogs array. => Create `blogsCount` attribute in schema?
+  - Need to determine where do I actually need a token and where I do not.
+
 - Note to self:
   - `git push heroku master`
   - and don't forget to set the env variables in heroku.
+  - Next project: **MONO REPO**.
+
+- I changed some of the logic of the app, in contrast to the app made in `part4`.
+  - Liking & submitting a blog requires you only to be signed-in.
+  - Some of the routes have been refactored like `/blogs/:id`
+
+- List of stupid mistakes:
+  - Spent too much time trying various stuff... ends up figureing out I'm using `array.filter()` the wrong way.
+  - Didn't enable `Redux Devtools` extension... because it existed in the `developer tools tab`.
+  - Didn't end `response.status()` with `.end()`, which resulted in a never fulfilling request.
