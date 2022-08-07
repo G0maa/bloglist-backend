@@ -92,14 +92,14 @@ describe('Getting blogs of specified user', () => {
     expect(response.body.title).toEqual(helper.initialBlogs[0].title)
   })
 
-  test('Getting incorrect blog of user with correct token', async () => {
+  test('Getting blog not posted by user with correct token', async () => {
     const response = await api
       .get(`/api/blogs/${helper.blogsId[0]}`)
       .set('Authorization', `bearer ${helper.tokens[1]}`)
-      .expect(401)
+      .expect(200)
       .expect('Content-Type', /application\/json/)
 
-    expect(response.body.error).toEqual('blog was not created by token holder')
+    expect(response.body.title).toEqual(helper.initialBlogs[0].title)
   })
 
   test('Getting nonexistent blog', async () => {

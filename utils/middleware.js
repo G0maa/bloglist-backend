@@ -54,6 +54,12 @@ const errorHandler = (error, request, response, next) => {
       .status(500)
       .json({ error: 'Probably JSON.parse() failed, see server logs.' })
   }
+  if (error.name === 'TokenExpiredError') {
+    return response.status(401).json({
+      error: 'token expired',
+    })
+  }
+
   return next(error)
 }
 

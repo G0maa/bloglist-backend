@@ -47,7 +47,7 @@ usersRouter.post('/', async (request, response) => {
 
 usersRouter.get('/', async (request, response) => {
   // const users = await User.find({}).populate('blogs', { title: 1, author: 1 })
-  const users = await User.find({}).select({ 'name' : 1, 'blogs': 1 })
+  const users = await User.find({}).select({ name: 1, blogs: 1 })
   console.log(users)
   // This is part of views and should be moved to the frontend
   const minifiedUsers = []
@@ -55,23 +55,26 @@ usersRouter.get('/', async (request, response) => {
     minifiedUsers.push({
       name: user.name,
       username: user.username,
-      blogCount: user.blogs.length,
+      blogsCount: user.blogs.length,
       blogs: [],
-      id: user._id
+      id: user._id,
     })
   }
   response.json(minifiedUsers)
 })
 
 usersRouter.get('/:id', async (request, response) => {
-  const userQuery = await User.findById(request.params.id).populate('blogs', { title: 1, author: 1 })
+  const userQuery = await User.findById(request.params.id).populate('blogs', {
+    title: 1,
+    author: 1,
+  })
 
   const userObj = {
     name: userQuery.name,
     username: userQuery.username,
     blogsCount: userQuery.blogs.length,
     blogs: userQuery.blogs,
-    id: userQuery._id
+    id: userQuery._id,
   }
   response.json(userObj)
 })

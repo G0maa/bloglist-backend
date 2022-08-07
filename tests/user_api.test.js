@@ -28,10 +28,11 @@ describe('User creation', () => {
     await api.post('/api/users').send(newUser).expect(201)
 
     const users = await api.get('/api/users')
+
     expect(users.body).toHaveLength(helper.initialUsers.length + 1)
 
-    const usernames = users.body.map((user) => user.username)
-    expect(usernames).toContain(newUser.username)
+    const names = users.body.map((user) => user.name)
+    expect(names).toContain(newUser.name)
   })
 
   test('When no password and username are given', async () => {
