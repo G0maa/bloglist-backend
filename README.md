@@ -23,11 +23,13 @@
 - Actual to-dos:
 
   - Fix PUT (in the logic related to liking a blog): ✅
+    - P.S: Now it's bad-coded (:
   - Have a time limit for the tokens: ✅
   - Fix deletion of blogs doesn't reflect changes on _any_ `user` document beforepopulation, this is also found in the excercise solution of `part4`: ✅
   - ~~I want to make retrival of `/api/users/` to not get me blogs array. => Create `blogsCount` attribute in schema?~~
   - Need to determine where do I actually need a token and where I do not: ✅
   - Add checking of existence of user to middleware, not just validating token: ❌
+  - Any refresh in production gives `unknown endpoint` error: ❌
 
 - Note to self:
 

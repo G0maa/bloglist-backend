@@ -130,13 +130,6 @@ blogsRouter.put(
       return
     }
 
-    if (blog.user.toString() !== request.user.id.toString()) {
-      response
-        .status(401)
-        .json({ error: 'blog was not created by token holder' })
-      return
-    }
-
     const updatedNote = await Blog.findByIdAndUpdate(
       request.params.id,
       likedBlog,
